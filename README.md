@@ -6,19 +6,33 @@ Acesta este un proiect pentru școală ce prezintă o aplicație web completă p
 
 ## 📸 Screenshots
 
-*(Aici vei adăuga tu screenshot-urile. Cel mai simplu mod este să faci pozele, să le tragi (drag & drop) direct în acest fișier text pe site-ul GitHub, iar el va genera link-ul automat pentru tine.)*
-
 **Ecranul de Login și Register:**
 ![Ecran Login](https://github.com/user-attachments/assets/e9c283c3-d814-43cc-a20f-f9a57fe5daff)
+
+
+<br>
+
 
 **Dashboard-ul Principal:**
 ![Dashboard](https://github.com/user-attachments/assets/7bc29a9c-4b77-48b8-afbf-279a8552d7b5)
 
+
+<br>
+
+
 **Interfata de filtrare/buget/situatie financiara curenta:**
 ![Interfata](https://github.com/user-attachments/assets/57e3a92f-94dc-4092-9d7f-6ff51eba92ca)
 
+
+<br>
+
+
 **Distribuia cheltuielilor/vizionare istoric/stergere greseli:**
 ![Grafic/Istoric](https://github.com/user-attachments/assets/354b986a-30a2-4792-9143-21a5ece95390)
+
+
+<br>
+
 
 ## 💡 Funcționalități Cheie
 
