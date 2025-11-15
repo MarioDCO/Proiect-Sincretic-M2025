@@ -1,5 +1,5 @@
 # app_streamlit.py
-# (versiune 3.7.1 - corectat bug-urile 'none'/'false' si formatul datei)
+# (versiune 3.7.3 - am actualizat argumentul depreciat pentru grafic)
 
 import streamlit as st
 import auth  
@@ -35,7 +35,7 @@ def show_login_page():
                 if status:
                     st.session_state['logged_in'] = True
                     st.session_state['username'] = message
-                    st.session_state['pending_expense'] = None # <-- CORECTAT (era 'none')
+                    st.session_state['pending_expense'] = None 
                     st.rerun() 
                 else:
                     st.error(message) 
@@ -90,7 +90,7 @@ def handle_learning_form(user_data):
         
         cheltuiala_corectata = {
             "id": datetime.now().timestamp(), 
-            "date": data_cheltuielii, # salvam string-ul de data primit
+            "date": data_cheltuielii, 
             "descriere": descriere,
             "pret": pret,
             "categorie": new_category 
@@ -108,12 +108,12 @@ def handle_learning_form(user_data):
         if mesaj_buget:
             st.warning(mesaj_buget) 
             
-        st.session_state['pending_expense'] = None # <-- CORECTAT (era 'none')
+        st.session_state['pending_expense'] = None 
         st.rerun()
 
     if cancel_button:
         st.info(f"ok, am anulat adaugarea pentru '{descriere}'.")
-        st.session_state['pending_expense'] = None # <-- CORECTAT (era 'none')
+        st.session_state['pending_expense'] = None 
         st.rerun()
 
 def handle_expense_form(user_data):
@@ -122,7 +122,6 @@ def handle_expense_form(user_data):
     user_budgets = user_data.get("user_budgets", {})
     
     with st.form("expense_form", clear_on_submit=True):
-        # campul nou pentru data (cu un calendar)
         data_cheltuielii = st.date_input("data cheltuielii", value=datetime.now())
         descriere = st.text_input("ce ai cumparat?")
         pret = st.number_input("cat a costat? (ron)", min_value=0.0, format="%.2f")
@@ -131,12 +130,9 @@ def handle_expense_form(user_data):
         if submit_expense and descriere:
             categorie_gasita = logic.classify_expense(descriere)
             
-            # --- BUG CRITIC CORECTAT AICI ---
-            # %y (an cu 2 cifre) a fost inlocuit cu %Y (an cu 4 cifre)
-            # pentru a fi compatibil cu `fromisoformat` din logic.py
             cheltuiala = {
                 "id": datetime.now().timestamp(), 
-                "date": data_cheltuielii.strftime("%Y-%m-%d"), # <-- CORECTAT
+                "date": data_cheltuielii.strftime("%Y-%m-%d"), 
                 "descriere": descriere,
                 "pret": pret,
                 "categorie": categorie_gasita
@@ -233,16 +229,16 @@ def show_main_app():
 
     st.sidebar.divider()
     if st.sidebar.button("logout (iesire)"):
-        st.session_state['logged_in'] = False # <-- CORECTAT (era 'false')
-        st.session_state['username'] = None # <-- CORECTAT (era 'none')
-        st.session_state['pending_expense'] = None # <-- CORECTAT (era 'none')
+        st.session_state['logged_in'] = False 
+        st.session_state['username'] = None 
+        st.session_state['pending_expense'] = None 
         st.rerun() 
 
     # --- incepe constructia paginii principale ---
     st.title("📈 Asistentul tau Financiar")
     st.info(f"afiseaza datele intre {start_date.strftime('%d-%m-%Y')} si {end_date.strftime('%d-%m-%Y')}")
     
-    if st.session_state['pending_expense'] is None: # <-- CORECTAT (era 'is none')
+    if st.session_state['pending_expense'] is None: 
         handle_expense_form(user_data)
     else:
         handle_learning_form(user_data)
@@ -263,7 +259,10 @@ def show_main_app():
                          values='suma',
                          title='cheltuieli pe categorie (in perioada)',
                          color_discrete_sequence=px.colors.sequential.RdBu) 
-            st.plotly_chart(fig, use_container_width=True)
+            
+            # --- MODIFICAREA ESTE AICI ---
+            # am inlocuit 'use_container_width=True' cu 'width="stretch"'
+            st.plotly_chart(fig, width='stretch') # <-- CORECTAT
         
         with st.expander("vezi si gestioneaza tranzactiile filtrate"):
             st.write("aici poti sterge cheltuielile adaugate gresit. stergerea este permanenta.")
