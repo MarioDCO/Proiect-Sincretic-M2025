@@ -1,0 +1,15 @@
+# Ignora mediul virtual (venv)
+# Acesta este imens, tehnic si specific calculatorului tau
+venv/
+
+# Ignora folderul cu datele utilizatorilor
+# Chiar daca sunt de test, e o practica buna sa le separi de cod
+data/
+
+# Ignora secretele!
+# Chiar daca nu folosesti OpenAI acum, e bine sa fie aici
+.streamlit/secrets.toml
+
+# Ignora fisierele temporare ale Python
+__pycache__/
+*.pyc
