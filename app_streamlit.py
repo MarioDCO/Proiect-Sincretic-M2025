@@ -1,5 +1,3 @@
-# app_streamlit.py
-# (versiune 3.7.3 - am actualizat argumentul depreciat pentru grafic)
 
 import streamlit as st
 import auth  
@@ -10,7 +8,6 @@ import pandas as pd
 import plotly.express as px 
 from datetime import datetime, date 
 
-# `st.session_state` este "memoria pe termen scurt" a aplicatiei.
 if 'logged_in' not in st.session_state:
     st.session_state['logged_in'] = False
 if 'username' not in st.session_state:
@@ -18,10 +15,9 @@ if 'username' not in st.session_state:
 if 'pending_expense' not in st.session_state:
     st.session_state['pending_expense'] = None
 
-# --- functiile care deseneaza paginile ---
-
+# deseneaza pagina principala 
 def show_login_page():
-    # deseneaza pagina de login si register
+    # deseneaza pagina de login 
     st.title("bun venit la asistentul financiar")
     tab_login, tab_register = st.tabs(["🔒 autentificare (login)", "📝 inregistrare cont nou"])
 
@@ -39,7 +35,7 @@ def show_login_page():
                     st.rerun() 
                 else:
                     st.error(message) 
-
+    # deseneaza pagina register
     with tab_register:
         with st.form("register_form"):
             reg_user = st.text_input("alege un nume de utilizator", key="reg_u")
@@ -53,7 +49,7 @@ def show_login_page():
                     st.error(message)
 
 def handle_learning_form(user_data):
-    # deseneaza formularul special de invatare.
+    # deseneaza formularul special de invatare
     lista_cheltuieli = user_data["expenses"]
     user_budgets = user_data.get("user_budgets", {})
     pending = st.session_state['pending_expense']
@@ -117,7 +113,7 @@ def handle_learning_form(user_data):
         st.rerun()
 
 def handle_expense_form(user_data):
-    # deseneaza formularul *normal* de adaugat cheltuieli.
+    # deseneaza formularul de adaugat cheltuieli.
     lista_cheltuieli = user_data["expenses"] 
     user_budgets = user_data.get("user_budgets", {})
     
@@ -157,7 +153,7 @@ def handle_expense_form(user_data):
                     st.warning(mesaj_buget)
 
 def show_main_app():
-    # aceasta este functia care construieste pagina principala
+    #functia care construieste pagina principala
     username = st.session_state['username']
     
     user_data = data_manager.load_finances(username)
@@ -165,7 +161,7 @@ def show_main_app():
     monthly_income = user_data["monthly_income"]
     user_budgets = user_data.get("user_budgets", config.BUGETE.copy())
 
-    # --- incepe constructia barei laterale (sidebar) ---
+    # sidebar-ul cu setari si filtre
     st.sidebar.title(f"salut, {username}!")
     
     st.sidebar.divider()
@@ -234,7 +230,7 @@ def show_main_app():
         st.session_state['pending_expense'] = None 
         st.rerun() 
 
-    # --- incepe constructia paginii principale ---
+    #incepe constructia paginii principale
     st.title("📈 Asistentul tau Financiar")
     st.info(f"afiseaza datele intre {start_date.strftime('%d-%m-%Y')} si {end_date.strftime('%d-%m-%Y')}")
     
@@ -243,7 +239,7 @@ def show_main_app():
     else:
         handle_learning_form(user_data)
 
-    # sectiunea de rezumat (bazata pe datele filtrate)
+    # rezumat (bazata pe datele filtrate)
     st.header("rezumatul cheltuielilor")
     if not cheltuieli_filtrate:
         st.info("nu ai nicio cheltuiala inregistrata pentru perioada selectata.")
@@ -260,9 +256,7 @@ def show_main_app():
                          title='cheltuieli pe categorie (in perioada)',
                          color_discrete_sequence=px.colors.sequential.RdBu) 
             
-            # --- MODIFICAREA ESTE AICI ---
-            # am inlocuit 'use_container_width=True' cu 'width="stretch"'
-            st.plotly_chart(fig, width='stretch') # <-- CORECTAT
+            st.plotly_chart(fig, width='stretch') 
         
         with st.expander("vezi si gestioneaza tranzactiile filtrate"):
             st.write("aici poti sterge cheltuielile adaugate gresit. stergerea este permanenta.")
@@ -291,7 +285,7 @@ def show_main_app():
                         st.success(f"am sters cheltuiala: '{expense.get('descriere')}'")
                         st.rerun()
 
-# --- router-ul principal (la final) ---
+#router-ul principal
 if not st.session_state['logged_in']:
     show_login_page()
 else:

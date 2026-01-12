@@ -1,5 +1,4 @@
 # data_manager.py
-# (versiune 2.1 - am reparat bug-ul int/float)
 # se ocupa de citirea si scrierea fisierelor json cu cheltuieli.
 
 import json
@@ -24,9 +23,8 @@ def load_finances(username):
     _ensure_data_folder()
     filepath = _get_user_filepath(username)
     
-    # --- MODIFICAREA #1 AICI ---
     # structura de baza pe care o returnam daca nu exista fisier
-    default_data = {"monthly_income": 0.0, "expenses": []} # Am schimbat 0 in 0.0
+    default_data = {"monthly_income": 0.0, "expenses": []} 
 
     if os.path.exists(filepath):
         try:
@@ -38,9 +36,9 @@ def load_finances(username):
                 default_data["expenses"] = data
                 return default_data
             
-            # --- MODIFICAREA #2 AICI ---
+           
             if "monthly_income" not in data:
-                data["monthly_income"] = 0.0 # Am schimbat 0 in 0.0
+                data["monthly_income"] = 0.0
             if "expenses" not in data:
                 data["expenses"] = []
                 

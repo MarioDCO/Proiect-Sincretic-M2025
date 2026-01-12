@@ -1,8 +1,8 @@
 # config.py
-# Panoul de control al aplicației.
-# Aici stocăm regulile și setările.
+# Panoul de control al aplicatiei de gestionare a bugetului personal
+# cand intrebi aici va cauta cuvantul cheie iar apoi va clasifica cheltuiala in una din categoriile predefinite.
 
-# "Inteligența" AI - Baza de cunoștințe pentru clasificare
+# "Inteligenta" AI - Baza de cunostinte pentru clasificarea cheltuielilor
 CATEGORII_CHEIE = {
     "Mancare/Supermarket": ["chips", "faina", "suc", "lapte", "paine", "apa", "supermarket", "magazin", "mancare", "legume", "fructe", "kaufland", "lidl", "mega", "piata"],
     "Utilitati": ["factura", "gaz", "curent", "apa", "intretinere", "chirie", "telefon", "digi", "vodafone"],
@@ -13,6 +13,7 @@ CATEGORII_CHEIE = {
 }
 
 # Setarea bugetelor lunare
+#aici sunt setate niste bugete implicite pentru fiecare categorie, dar din interfata utilizatorului se pot modifica.
 BUGETE = {
     "Mancare/Supermarket": 1000,
     "Utilitati": 700,
@@ -22,3 +23,4 @@ BUGETE = {
     "Shopping (Haine/Electronice)": 500,
     "Diverse": 150
 }
+#in costum_keywords.json se pot adauga cuvinte cheie personalizate pentru fiecare utilizator.
