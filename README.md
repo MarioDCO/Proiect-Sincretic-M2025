@@ -62,4 +62,15 @@ Asistent-Financiar-AI/
 │   └── config.toml
 ├── data/                 # (Generated) User data files store here
 └── assets/               # Images for README
+<<<<<<< HEAD
 ---
+=======
+---
+## 🚀 Tehnologii utilizate
+* **Python 3.12+**
+Streamlit: A powerful Python framework used to build the interactive web interface.
+Plotly Express: A high-level visualization library.
+Pandas: The industry-standard library for data manipulation.
+Git: The distributed version control system used to track changes in the source code.
+Virtual Environment (.venv): An isolated environment created specifically for this project.
+>>>>>>> 1b4f255 (modificari)
